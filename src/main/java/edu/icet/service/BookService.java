@@ -18,6 +18,4 @@ public interface BookService {
     List<Book> searchBookByName(String name);
 
     List<Book> latestBook(Integer count);
-
-    Integer length();
 }

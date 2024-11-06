@@ -52,11 +52,6 @@ public class BookServiceImpl implements BookService {
         return this.map(bookDao.latestBookList(count));
     }
 
-    @Override
-    public Integer length() {
-        return (int) bookDao.count();
-    }
-
     private List<Book> map(List<BookEntity> bookEntityList) {
         List<Book> bookList = new ArrayList<>();
         for (BookEntity entity : bookEntityList) {
