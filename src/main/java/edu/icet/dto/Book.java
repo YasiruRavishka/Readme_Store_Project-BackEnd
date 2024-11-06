@@ -14,5 +14,10 @@ public class Book {
     private Double price;
     private Integer qtyOnHand;
     @JsonProperty("isDisable")
-    private boolean isDisable;
+    private Boolean isDisable;
+
+    public Book setDisable(Boolean disable) {
+        isDisable = disable;
+        return this;
+    }
 }
