@@ -1,7 +1,6 @@
 package edu.icet.controller;
 
 import edu.icet.dto.Book;
-import edu.icet.exception.OutOfRangeException;
 import edu.icet.service.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,10 +56,6 @@ public class BookController {
     @GetMapping("/latest/{count}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public List<Book> getLatestBook(@PathVariable Integer count){
-        try {
-            return service.latestBook(Math.abs(count));
-        } catch (IndexOutOfBoundsException e) {
-            throw new OutOfRangeException(e.getMessage());
-        }
+        return service.latestBook(count);
     }
 }

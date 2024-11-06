@@ -48,8 +48,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> latestBook(Integer count) throws IndexOutOfBoundsException {
-        return this.map(bookDao.OrderByIdDesc().subList(0,count));
+    public List<Book> latestBook(Integer count) {
+        return this.map(bookDao.latestBookList(count));
     }
 
     @Override
