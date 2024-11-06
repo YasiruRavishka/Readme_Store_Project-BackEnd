@@ -14,42 +14,42 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    private final BookDao bookDao;
+    private final BookDao repository;
     private final ModelMapper mapper;
 
     @Override
     public List<Book> getAll() {
-        return this.map(bookDao.findAll());
+        return this.map(repository.findAll());
     }
 
     @Override
     public void addBook(Book book) {
-        bookDao.save(mapper.map(book, BookEntity.class));
+        repository.save(mapper.map(book, BookEntity.class));
     }
 
     @Override
     public void updateBook(Book book) {
-        bookDao.save(mapper.map(book, BookEntity.class));
+        repository.save(mapper.map(book, BookEntity.class));
     }
 
     @Override
     public void deleteBookById(Integer id) {
-        bookDao.deleteById(id);
+        updateBook(searchBookById(id).setDisable(true));
     }
 
     @Override
     public Book searchBookById(Integer id) {
-        return mapper.map(bookDao.findById(id), Book.class);
+        return mapper.map(repository.findById(id), Book.class);
     }
 
     @Override
     public List<Book> searchBookByName(String name) {
-        return this.map(bookDao.findByName(name));
+        return this.map(repository.findByName(name));
     }
 
     @Override
     public List<Book> latestBook(Integer count) {
-        return this.map(bookDao.latestBookList(count));
+        return this.map(repository.latestBookList(count));
     }
 
     private List<Book> map(List<BookEntity> bookEntityList) {
