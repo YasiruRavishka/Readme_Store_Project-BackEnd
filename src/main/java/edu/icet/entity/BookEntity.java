@@ -21,5 +21,5 @@ public class BookEntity {
     @Column(name = "qty_on_hand")
     private Integer qtyOnHand;
     @Column(name = "is_disable")
-    private boolean isDisable;
+    private Boolean isDisable;
 }
