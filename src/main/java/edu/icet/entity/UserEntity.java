@@ -1,0 +1,26 @@
+package edu.icet.entity;
+
+import edu.icet.util.UserType;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "user")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(nullable = false, unique = true)
+    private String email;
+    @Column(nullable = false)
+    private String password;
+    @Column(name = "role", nullable = false)
+    private UserType type;
+    @Column(name = "is_disable")
+    private Boolean isDisable;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
+}
