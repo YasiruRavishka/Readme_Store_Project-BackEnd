@@ -5,9 +5,9 @@ import edu.icet.dto.User;
 import edu.icet.entity.BookEntity;
 import edu.icet.entity.OrderEntity;
 import edu.icet.entity.OrderItemEntity;
-import edu.icet.entity.UserEntity;
 import edu.icet.repository.BookDao;
 import edu.icet.repository.OrderDao;
+import edu.icet.repository.UserDao;
 import edu.icet.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,22 +22,23 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final OrderDao orderRepository;
     private final BookDao bookRepository;
+    private final UserDao userRepository;
     private final ModelMapper mapper;
 
     @Override
     public void placeOrder(User user, List<OrderItem> items) {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setUser(mapper.map(user, UserEntity.class));
+        orderEntity.setUser(userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("Book not found")));
         orderEntity.setDate(LocalDate.now());
 
         double total = 0;
         List<OrderItemEntity> orderItems = new ArrayList<>();
         for (OrderItem item : items) {
-            BookEntity bookEntity = bookRepository.findById(item.getId()).orElseThrow(() -> new RuntimeException("Book not found"));
+            BookEntity bookEntity = bookRepository.findById(item.getBook().getId()).orElseThrow(() -> new RuntimeException("Book not found"));
             OrderItemEntity orderItemEntity = new OrderItemEntity();
             orderItemEntity.setBook(bookEntity);
-            orderItemEntity.setQuantity(item.getQuantity());
-            orderItemEntity.setPrice(bookEntity.getPrice() * item.getQuantity());
+            orderItemEntity.setQty(item.getQty());
+            orderItemEntity.setPrice(bookEntity.getPrice() * item.getQty());
             orderItems.add(orderItemEntity);
             total += orderItemEntity.getPrice();
         }
