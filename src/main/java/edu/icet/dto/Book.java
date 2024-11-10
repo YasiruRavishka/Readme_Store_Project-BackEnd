@@ -1,6 +1,6 @@
 package edu.icet.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -13,9 +13,9 @@ public class Book {
     private String publisher;
     private Double price;
     private Integer qtyOnHand;
-    @JsonProperty("isDisable")
     private Boolean isDisable;
 
+    @JsonIgnore
     public Book setDisable(Boolean disable) {
         isDisable = disable;
         return this;

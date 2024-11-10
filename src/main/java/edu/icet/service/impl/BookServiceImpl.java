@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +40,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book searchBookById(Integer id) {
-        return mapper.map(repository.findById(id), Book.class);
+        Optional<BookEntity> value = repository.findById(id);
+        return value.isEmpty() ? null : mapper.map(value, Book.class);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> latestBook(Integer count) {
-        return this.map(repository.latestBookList(count));
+        return this.map(repository.latestBookList(Math.abs(count)));
     }
 
     private List<Book> map(List<BookEntity> bookEntityList) {
