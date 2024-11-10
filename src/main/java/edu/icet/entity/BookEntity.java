@@ -3,23 +3,34 @@ package edu.icet.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "book")
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
+
     @Column(name = "img_src")
     private String imgSrc;
+
     @Column(nullable = false)
     private String name;
+
     private String description;
     private String author;
     private String publisher;
-    private Double price;
+    private double price;
+
     @Column(name = "qty_on_hand")
-    private Integer qtyOnHand;
+    private int qtyOnHand;
+
     @Column(name = "is_disable")
-    private Boolean isDisable;
+    private boolean isDisable;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_item_id")
+    private List<OrderItemEntity> orderItems;
 }

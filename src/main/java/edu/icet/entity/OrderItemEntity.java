@@ -9,14 +9,16 @@ import lombok.Data;
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    @ManyToOne
-    private OrderEntity order;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_id")
     private BookEntity book;
 
-    private Integer quantity;
-    private Double price;
+    private int qty;
+    private double price;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private OrderEntity order;
 }

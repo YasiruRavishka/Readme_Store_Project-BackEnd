@@ -12,19 +12,19 @@ import java.util.List;
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "date_time", nullable = false)
     private LocalDate date;
 
     @Column(nullable = false)
-    private Double total;
+    private double total;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_items")
+    @JoinColumn(name = "order_item_id")
     private List<OrderItemEntity> orderItems;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 }

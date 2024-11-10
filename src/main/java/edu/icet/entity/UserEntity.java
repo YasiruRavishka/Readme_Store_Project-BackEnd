@@ -12,15 +12,21 @@ import java.util.List;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String password;
+
     @Column(name = "role", nullable = false)
     private UserType type;
+
     @Column(name = "is_disable")
-    private Boolean isDisable;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private boolean isDisable;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     private List<OrderEntity> orders;
 }
