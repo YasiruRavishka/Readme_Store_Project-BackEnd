@@ -7,6 +7,6 @@ public class OrderItem {
     private Integer id;
     private Order order;
     private Book book;
-    private Integer quantity;
+    private Integer qty;
     private Double price;
 }
