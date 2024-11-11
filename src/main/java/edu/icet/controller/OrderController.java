@@ -1,6 +1,7 @@
 package edu.icet.controller;
 
 import edu.icet.dto.OrderItem;
+import edu.icet.dto.RequestOrder;
 import edu.icet.dto.User;
 import edu.icet.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class OrderController {
     private final OrderService service;
 
     @PostMapping("/place")
-    public void placeOrder(@RequestBody User user, @RequestBody List<OrderItem> items) {
-        service.placeOrder(user, items);
+    public void placeOrder(@RequestBody RequestOrder requestOrder) {
+        service.placeOrder(requestOrder.getUser(), requestOrder.getItems());
     }
 }
