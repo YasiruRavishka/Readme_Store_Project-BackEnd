@@ -30,7 +30,6 @@ public class BookEntity {
     @Column(name = "is_disable")
     private boolean isDisable;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_item_id")
+    @OneToMany(mappedBy = "book")
     private List<OrderItemEntity> orderItems;
 }

@@ -39,9 +39,11 @@ public class OrderServiceImpl implements OrderService {
             orderItemEntity.setBook(bookEntity);
             orderItemEntity.setQty(item.getQty());
             orderItemEntity.setPrice(bookEntity.getPrice() * item.getQty());
+            orderItemEntity.setOrder(orderEntity);
             orderItems.add(orderItemEntity);
             total += orderItemEntity.getPrice();
         }
+
         orderEntity.setOrderItems(orderItems);
         orderEntity.setTotal(total);
         orderRepository.save(orderEntity);

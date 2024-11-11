@@ -26,7 +26,6 @@ public class UserEntity {
     @Column(name = "is_disable")
     private boolean isDisable;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<OrderEntity> orders;
 }

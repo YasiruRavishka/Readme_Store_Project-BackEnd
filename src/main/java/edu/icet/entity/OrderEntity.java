@@ -20,11 +20,10 @@ public class OrderEntity {
     @Column(nullable = false)
     private double total;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_item_id")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItemEntity> orderItems;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
 }

@@ -11,14 +11,14 @@ public class OrderItemEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "book_id")
     private BookEntity book;
 
     private int qty;
     private double price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 }
