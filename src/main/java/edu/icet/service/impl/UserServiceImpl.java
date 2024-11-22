@@ -3,6 +3,7 @@ package edu.icet.service.impl;
 import edu.icet.dto.User;
 import edu.icet.entity.UserEntity;
 import edu.icet.repository.UserDao;
+import edu.icet.service.EmailService;
 import edu.icet.service.UserService;
 import edu.icet.util.UserType;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserDao repository;
+    private final EmailService emailService;
     private final ModelMapper mapper;
 
     @Override
@@ -31,12 +33,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        repository.save(mapper.map(user, UserEntity.class));
+        try {
+            repository.save(mapper.map(user, UserEntity.class));
+            emailService.sendAccountCreatedSuccessEmail(user.getEmail(), user.getEmail());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void updateUser(User user) {
-        repository.save(mapper.map(user, UserEntity.class));
+        try {
+            repository.save(mapper.map(user, UserEntity.class));
+            emailService.sendAccountPasswordChangedSuccessEmail(user.getEmail(), user.getEmail());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
