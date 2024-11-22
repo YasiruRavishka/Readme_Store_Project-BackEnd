@@ -1,5 +1,6 @@
 package edu.icet.service.impl;
 
+import edu.icet.dto.Order;
 import edu.icet.dto.OrderItem;
 import edu.icet.dto.User;
 import edu.icet.entity.BookEntity;
@@ -24,6 +25,15 @@ public class OrderServiceImpl implements OrderService {
     private final BookDao bookRepository;
     private final UserDao userRepository;
     private final ModelMapper mapper;
+
+    @Override
+    public List<Order> getAll() {
+        List<Order> orderList = new ArrayList<>();
+        for (OrderEntity order : orderRepository.findAll()) {
+            orderList.add(mapper.map(order, Order.class));
+        }
+        return orderList;
+    }
 
     @Override
     public void placeOrder(User user, List<OrderItem> items) {
